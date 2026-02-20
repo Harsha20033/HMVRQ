@@ -19,6 +19,7 @@ import generateLight from "@/images/light-generate.png";
 import generateDark from "@/images/dark-generate.png";
 import manualDark from "@/images/dark-manual.png";
 import manualLight from "@/images/light-manual.png";
+import logoIcon from "@/app/icon.svg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -87,7 +88,10 @@ export default function MarketingPage() {
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
       <header>
         <nav className="fixed top-6 inset-x-0 mx-auto max-w-5xl z-50 rounded-full border border-border/80 bg-background/40 backdrop-blur-md px-6 py-3 flex items-center justify-between shadow-sm">
-          <div className="text-2xl font-bold ">GenQ</div>
+          <div className="flex items-center gap-3">
+            <Image src={logoIcon} alt="GenQ Logo" width={28} height={28} className="w-7 h-7" />
+            <div className="text-2xl font-bold">GenQ</div>
+          </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
             <SignedOut>
