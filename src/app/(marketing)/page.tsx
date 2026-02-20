@@ -1,8 +1,9 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   SignInButton,
   SignUpButton,
@@ -12,6 +13,12 @@ import {
 } from "@clerk/nextjs";
 import ThemeToggle from "@/components/ThemeToggle";
 import { ArrowRight, Sparkles, Mic, FileText, Database, BrainCircuit } from "lucide-react";
+import dashboardLight from "@/images/light-dashboard.png";
+import dashboardDark from "@/images/dark-dashboard.png";
+import generateLight from "@/images/light-generate.png";
+import generateDark from "@/images/dark-generate.png";
+import manualDark from "@/images/dark-manual.png";
+import manualLight from "@/images/light-manual.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -67,11 +74,20 @@ const featureItems: {
 ];
 
 export default function MarketingPage() {
+  const previewRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: previewRef,
+    offset: ["start 20%", "end 100%"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1.15]);
+  const rotateX = useTransform(scrollYProgress, [0, 1], [20, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], ["10%", "0%"]);
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
       <header>
-        <nav className="fixed top-6 inset-x-0 mx-auto max-w-5xl z-50 rounded-full border border-border/40 bg-background/40 backdrop-blur-md px-6 py-3 flex items-center justify-between shadow-sm">
-          <div className="text-xl font-bold">GenQ</div>
+        <nav className="fixed top-6 inset-x-0 mx-auto max-w-5xl z-50 rounded-full border border-border/80 bg-background/40 backdrop-blur-md px-6 py-3 flex items-center justify-between shadow-sm">
+          <div className="text-2xl font-bold ">GenQ</div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
             <SignedOut>
@@ -164,22 +180,41 @@ export default function MarketingPage() {
               </button> */}
             </motion.div>
 
-            <motion.div
-              variants={fadeUp}
-              transition={{ ...fadeUpTransition, delay: 0.2 }}
-              className="mt-20 rounded-2xl border border-border bg-card shadow-2xl overflow-hidden aspect-video max-w-5xl mx-auto relative"
-            >
-              <div className="h-12 border-b border-border flex items-center px-4 gap-2">
-                <div className="size-3 rounded-full bg-red-500" />
-                <div className="size-3 rounded-full bg-yellow-500" />
-                <div className="size-3 rounded-full bg-green-500" />
+            <div ref={previewRef} className="mt-32 h-[200vh] w-full relative">
+              <div className="sticky top-[20vh] flex items-center justify-center px-6 perspective-distant">
+                <motion.div
+                  style={{
+                    scale,
+                    rotateX,
+                    y,
+                    transformOrigin: "top center",
+                  }}
+                  className="rounded-xl border border-border bg-card shadow-[0px_40px_40px_-20px_rgba(0,0,0,0.3)] dark:shadow-[0px_40px_100px_-20px_rgba(255,255,255,0.05)] overflow-hidden aspect-video w-full  relative z-10"
+                >
+                  <div className="h-12 border-b border-border flex items-center px-4 gap-2 bg-muted/50">
+                    <div className="size-3 rounded-full bg-red-500" />
+                    <div className="size-3 rounded-full bg-yellow-500" />
+                    <div className="size-3 rounded-full bg-green-500" />
+                  </div>
+                  <div className="w-full h-full relative">
+                    <Image
+                      src={dashboardDark}
+                      alt="Dashboard Interface Preview"
+                      fill
+                      className="object-cover object-bottom block dark:hidden"
+                      priority
+                    />
+                    <Image
+                      src={dashboardLight}
+                      alt="Dashboard Interface Preview"
+                      fill
+                      className="object-cover object-bottom hidden dark:block"
+                      priority
+                    />
+                  </div>
+                </motion.div>
               </div>
-              <div className="w-full h-full flex items-center justify-center bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
-                <p className="text-sm md:text-base text-muted-foreground">
-                  Dashboard Interface Preview
-                </p>
-              </div>
-            </motion.div>
+            </div>
           </motion.div>
         </section>
 
@@ -244,10 +279,19 @@ export default function MarketingPage() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ ...fadeUpTransition, delay: 0.2 }}
             >
-              <div className="aspect-square md:aspect-[4/3] rounded-2xl border border-border bg-muted overflow-hidden relative flex items-center justify-center">
-                <span className="text-sm md:text-base text-muted-foreground">
-                  Light/Dark Screenshot 1
-                </span>
+              <div className="aspect-square md:aspect-6/4 rounded-2xl border border-border bg-muted overflow-hidden relative">
+                <Image
+                  src={generateDark}
+                  alt="Cognitive AI Syllabus Parsing"
+                  fill
+                  className="object-cover block dark:hidden"
+                />
+                <Image
+                  src={generateLight}
+                  alt="Cognitive AI Syllabus Parsing"
+                  fill
+                  className="object-cover hidden dark:block"
+                />
               </div>
             </motion.div>
           </div>
@@ -261,10 +305,19 @@ export default function MarketingPage() {
               transition={{ ...fadeUpTransition, delay: 0.2 }}
               className="order-2 md:order-1"
             >
-              <div className="aspect-square md:aspect-[4/3] rounded-2xl border border-border bg-muted overflow-hidden relative flex items-center justify-center">
-                <span className="text-sm md:text-base text-muted-foreground">
-                  Light/Dark Screenshot 2
-                </span>
+              <div className="aspect-square md:aspect-4/3 rounded-2xl border border-border bg-muted overflow-hidden relative">
+                <Image
+                  src={manualDark}
+                  alt="Hands-Free Manual Generation"
+                  fill
+                  className="object-cover block dark:hidden"
+                />
+                <Image
+                  src={manualLight}
+                  alt="Hands-Free Manual Generation"
+                  fill
+                  className="object-cover hidden dark:block"
+                />
               </div>
             </motion.div>
 
@@ -311,16 +364,21 @@ export default function MarketingPage() {
             </a>
           </div>
 
-          <div className="mt-12 w-full flex flex-col md:flex-row items-center justify-between text-sm text-muted-foreground border-t border-border/40 pt-8 pb-8 gap-4">
+
+
+          <div className="mt-12 w-dvw flex justify-center items-center border-t border-border">
+
+          <div className=" max-w-7xl flex flex-col md:flex-row items-center justify-between text-sm text-muted-foreground  pt-8 pb-8 gap-4">
             <span>
               © {new Date().getFullYear()} GenQ. All rights reserved.
             </span>
             <span>Built for instructors, departments, and entire institutions.</span>
           </div>
+          </div>
 
-          <div className="relative w-full  flex justify-center -mb-4 pointer-events-none select-none">
+          <div className="relative w-full  flex justify-center -mb-10 pointer-events-none select-none">
             <h1 className="text-[20vw] font-bold tracking-tighter leading-none text-transparent bg-clip-text bg-linear-to-b from-muted-foreground/20 to-background ">
-              GEN<span className="bg-clip-text bg-linear-to-t from-muted-foreground to-background">Q</span>
+              GEN<span className="bg-clip-text bg-linear-to-t from-muted-foreground to-background font-sans">Q</span>
               
             </h1>
           </div>
