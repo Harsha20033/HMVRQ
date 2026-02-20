@@ -116,7 +116,7 @@ export default function GeneratePage() {
   // useEffect(() => {
   //   const fetchModels = async () => {
   //     try {
-  //       const apiKey = `AIzaSyCijzEyOPD0agmC4250CGE46MBxxscigm4`; // use env variable
+  //       const apiKey = ``; // use env variable
 
   //       if (!apiKey) {
   //         console.error("GEMINI_API_KEY not configured");
