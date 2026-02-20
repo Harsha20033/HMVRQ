@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Sparkles, Mic, ArrowRight } from "lucide-react";
+import { Sparkles, Mic, ArrowRight, History } from "lucide-react";
 
 export default function DashboardPage() {
   return (
@@ -17,7 +17,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <motion.div
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -25,7 +25,7 @@ export default function DashboardPage() {
             <Link href="/generate">
               <div className="group relative h-full backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="p-4 rounded-xl bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-200/50 dark:border-orange-900/50">
@@ -72,7 +72,7 @@ export default function DashboardPage() {
             <Link href="/manual">
               <div className="group relative h-full backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="p-4 rounded-xl bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-200/50 dark:border-orange-900/50">
@@ -111,7 +111,39 @@ export default function DashboardPage() {
               </div>
             </Link>
           </motion.div>
+
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <Link href="/history">
+              <div className="group relative h-full backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="p-4 rounded-xl bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-200/50 dark:border-orange-900/50">
+                      <History className="w-8 h-8 text-orange-600 dark:text-orange-500" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                      History & Exports
+                    </h2>
+                  </div>
+
+                  <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                    View, manage, and download your previously generated AI and manual exam papers in PDF and DOCX formats.
+                  </p>
+
+                  <div className="flex items-center gap-2 text-orange-600 dark:text-orange-500 font-medium group-hover:gap-4 transition-all">
+                    <span>View history</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
         </div>
+
       </div>
     </div>
   );
