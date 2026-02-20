@@ -113,38 +113,40 @@ export function HistoryClient({ initialPapers }: HistoryClientProps) {
         {papers.map((paper) => (
           <div
             key={paper.id}
-            className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow"
+            className="bg-card text-card-foreground rounded-xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col"
           >
             <h2 className="text-xl font-semibold mb-3">{paper.title}</h2>
-            <p className="text-gray-600 mb-2">Total Marks: {paper.total_marks}</p>
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="text-muted-foreground mb-2">
+              Total Marks: {paper.total_marks}
+            </p>
+            <p className="text-sm text-muted-foreground mb-4">
               Created: {formatDate(paper.created_at)}
             </p>
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-2 flex-wrap mt-auto pt-6">
               <button
                 onClick={() => handleView(paper)}
-                className="flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm"
+                className="flex items-center gap-2 px-3 py-2 bg-secondary text-secondary-foreground border border-border rounded-md hover:bg-secondary/80 transition-colors text-sm"
               >
                 <Eye size={16} />
                 View
               </button>
               <button
                 onClick={() => handleDownloadPDF(paper)}
-                className="flex items-center gap-2 px-3 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors text-sm"
+                className="flex items-center gap-2 px-3 py-2 bg-secondary text-secondary-foreground border border-border rounded-md hover:bg-secondary/80 transition-colors text-sm"
               >
                 <FileText size={16} />
                 Download PDF
               </button>
               <button
                 onClick={() => handleDownloadDOCX(paper)}
-                className="flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm"
+                className="flex items-center gap-2 px-3 py-2 bg-secondary text-secondary-foreground border border-border rounded-md hover:bg-secondary/80 transition-colors text-sm"
               >
                 <Download size={16} />
                 Download DOCX
               </button>
               <button
                 onClick={() => handleDelete(paper.id)}
-                className="flex items-center gap-2 px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-sm"
+                className="flex items-center gap-2 px-3 py-2 bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90 transition-colors text-sm"
               >
                 <Trash2 size={16} />
                 Delete
@@ -153,71 +155,76 @@ export function HistoryClient({ initialPapers }: HistoryClientProps) {
           </div>
         ))}
         {papers.length === 0 && (
-          <div className="col-span-full text-center py-12 text-gray-500">
+          <div className="col-span-full text-center py-12 text-muted-foreground">
             No papers found. Generate your first paper to see it here.
           </div>
         )}
       </div>
       {selectedPaper && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 print:p-0 print:bg-white print:static print:z-[9999]">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 print:shadow-none print:max-w-none print:max-h-none print:overflow-visible print:p-0">
+        <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center p-4 print:p-0 print:bg-white print:static print:z-[9999]">
+          <div className="bg-card text-card-foreground border border-border rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto p-8 print:shadow-none print:max-w-none print:max-h-none print:overflow-visible print:p-0">
             <div className="flex justify-end mb-4 print:hidden">
               <button
                 onClick={() => setSelectedPaper(null)}
-                className="text-gray-500 hover:text-gray-800 font-medium"
+                className="text-muted-foreground hover:text-foreground font-medium transition-colors"
               >
                 Close
               </button>
             </div>
-            {selectedPaper.content_html ? (
-              <div
-                className="prose max-w-none"
-                dangerouslySetInnerHTML={{ __html: selectedPaper.content_html }}
-              />
-            ) : (
-              <div className="space-y-6">
-                <div className="border-b border-gray-200 pb-4 mb-4">
-                  <h1 className="text-3xl font-bold mb-2 text-center">
-                    {selectedPaper.title}
-                  </h1>
-                  {selectedPaper.subtitle && (
-                    <p className="text-lg text-center text-gray-600 mb-1">
-                      {selectedPaper.subtitle}
+            <div className="font-playfair">
+              {selectedPaper.content_html ? (
+                <div
+                  className="prose max-w-none"
+                  dangerouslySetInnerHTML={{ __html: selectedPaper.content_html }}
+                />
+              ) : (
+                <div className="space-y-6">
+                  <div className="border-b border-border pb-4 mb-4">
+                    <h1 className="text-3xl font-bold mb-2 text-center">
+                      {selectedPaper.title}
+                    </h1>
+                    {selectedPaper.subtitle && (
+                      <p className="text-lg text-center text-muted-foreground mb-1">
+                        {selectedPaper.subtitle}
+                      </p>
+                    )}
+                    <p className="text-center text-muted-foreground">
+                      Total Marks: {selectedPaper.total_marks}
                     </p>
-                  )}
-                  <p className="text-center text-gray-700">
-                    Total Marks: {selectedPaper.total_marks}
-                  </p>
+                  </div>
+                  {(() => {
+                    const groupedByMarks: Record<number, Question[]> = {};
+                    selectedPaper.questions.forEach((question) => {
+                      const key = question.marks;
+                      if (!groupedByMarks[key]) {
+                        groupedByMarks[key] = [];
+                      }
+                      groupedByMarks[key].push(question);
+                    });
+                    const marksGroups = Object.keys(groupedByMarks)
+                      .map((key) => Number(key))
+                      .sort((a, b) => a - b);
+                    return marksGroups.map((marks) => (
+                      <div key={marks} className="space-y-3">
+                        <h2 className="text-2xl font-semibold">
+                          Section ({marks} Marks)
+                        </h2>
+                        <ul className="list-decimal list-inside space-y-2">
+                          {groupedByMarks[marks].map((question) => (
+                            <li
+                              key={question.id}
+                              className="text-foreground leading-relaxed"
+                            >
+                              {question.question_text}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ));
+                  })()}
                 </div>
-                {(() => {
-                  const groupedByMarks: Record<number, Question[]> = {};
-                  selectedPaper.questions.forEach((question) => {
-                    const key = question.marks;
-                    if (!groupedByMarks[key]) {
-                      groupedByMarks[key] = [];
-                    }
-                    groupedByMarks[key].push(question);
-                  });
-                  const marksGroups = Object.keys(groupedByMarks)
-                    .map((key) => Number(key))
-                    .sort((a, b) => a - b);
-                  return marksGroups.map((marks) => (
-                    <div key={marks} className="space-y-3">
-                      <h2 className="text-2xl font-semibold">
-                        Section ({marks} Marks)
-                      </h2>
-                      <ul className="list-decimal list-inside space-y-2">
-                        {groupedByMarks[marks].map((question) => (
-                          <li key={question.id} className="text-gray-800 leading-relaxed">
-                            {question.question_text}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ));
-                })()}
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}

@@ -39,68 +39,70 @@ export default function ManualPage() {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-4xl">
-      <h1 className="text-2xl font-bold mb-6">Create Manual Exam Paper</h1>
+    <div className="min-h-screen bg-background text-foreground p-6 md:p-12">
+      <div className="max-w-5xl mx-auto space-y-8">
+        <h1 className="text-2xl font-bold">Create Manual Exam Paper</h1>
 
-      <div className="space-y-4 mb-6">
-        <div>
-          <label htmlFor="title" className="block text-sm font-medium mb-2">
-            Title
-          </label>
-          <input
-            id="title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter exam paper title"
-          />
+        <div className="bg-card border border-border rounded-xl p-6 shadow-sm space-y-6">
+          <div>
+            <label htmlFor="title" className="block text-sm font-medium mb-2">
+              Title
+            </label>
+            <input
+              id="title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-3 py-2 border border-border bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
+              placeholder="Enter exam paper title"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="totalMarks" className="block text-sm font-medium mb-2">
+              Total Marks
+            </label>
+            <input
+              id="totalMarks"
+              type="number"
+              value={totalMarks || ""}
+              onChange={(e) => setTotalMarks(parseInt(e.target.value) || 0)}
+              className="w-full px-3 py-2 border border-border bg-background rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
+              placeholder="Enter total marks"
+              min="1"
+            />
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="totalMarks" className="block text-sm font-medium mb-2">
-            Total Marks
-          </label>
-          <input
-            id="totalMarks"
-            type="number"
-            value={totalMarks || ""}
-            onChange={(e) => setTotalMarks(parseInt(e.target.value) || 0)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter total marks"
-            min="1"
-          />
+        <ManualEditor onChange={handleEditorChange} />
+
+        {error && (
+          <div className="mt-6 p-4 bg-destructive/10 text-destructive border border-destructive/20 rounded-md">
+            <p>{error}</p>
+          </div>
+        )}
+
+        {success && (
+          <div className="mt-6 p-4 bg-primary/10 text-primary border border-primary/20 rounded-md">
+            <p>Paper saved successfully!</p>
+          </div>
+        )}
+
+        <div className="mt-6 flex justify-end gap-4">
+          <button
+            onClick={() => exportToWord(contentHtml, title || "manual-paper")}
+            className="px-6 py-3 bg-secondary text-secondary-foreground border border-border rounded-lg hover:bg-secondary/80 transition-all font-medium"
+          >
+            Download DOCX
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={isLoading}
+            className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all font-medium disabled:opacity-50"
+          >
+            {isLoading ? "Saving..." : "Save Manual Paper"}
+          </button>
         </div>
-      </div>
-
-      <ManualEditor onChange={handleEditorChange} />
-
-      {error && (
-        <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-md">
-          <p className="text-red-800">{error}</p>
-        </div>
-      )}
-
-      {success && (
-        <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-md">
-          <p className="text-green-800">Paper saved successfully!</p>
-        </div>
-      )}
-
-      <div className="mt-6 flex justify-end gap-4">
-        <button
-          onClick={() => exportToWord(contentHtml, title || "manual-paper")}
-          className="px-6 py-3 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors"
-        >
-          Download DOCX
-        </button>
-        <button
-          onClick={handleSave}
-          disabled={isLoading}
-          className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? "Saving..." : "Save Manual Paper"}
-        </button>
       </div>
     </div>
   );

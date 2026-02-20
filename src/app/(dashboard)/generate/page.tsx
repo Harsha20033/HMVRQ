@@ -139,13 +139,13 @@ export default function GeneratePage() {
 
 
   return (
-    <div className="container mx-auto p-6 max-w-7xl">
+    <div className="container mx-auto p-6 max-w-7xl min-h-screen bg-background text-foreground">
       <h1 className="text-3xl font-bold mb-8">Generate Exam Paper with AI</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         <div>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="bg-card text-card-foreground border border-border rounded-xl shadow-sm p-6">
           <h2 className="text-xl font-semibold mb-4">Document Details</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
@@ -162,7 +162,7 @@ export default function GeneratePage() {
                     setValue("file", file, { shouldValidate: true });
                   }
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
               />
               {errors.file && (
                 <p className="mt-1 text-sm text-red-600">{errors.file.message as string}</p>
@@ -177,7 +177,7 @@ export default function GeneratePage() {
                 id="title"
                 type="text"
                 {...register("title")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
               />
               {errors.title && (
                 <p className="mt-1 text-sm text-red-600">{errors.title.message as string}</p>
@@ -192,7 +192,7 @@ export default function GeneratePage() {
                 id="subtitle"
                 type="text"
                 {...register("subtitle")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
               />
               {errors.subtitle && (
                 <p className="mt-1 text-sm text-red-600">{errors.subtitle.message as string}</p>
@@ -207,7 +207,7 @@ export default function GeneratePage() {
                 id="date"
                 type="date"
                 {...register("date")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
               />
               {errors.date && (
                 <p className="mt-1 text-sm text-red-600">{errors.date.message as string}</p>
@@ -218,7 +218,7 @@ export default function GeneratePage() {
 
        
 
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="bg-card text-card-foreground border border-border rounded-xl shadow-sm p-6">
           <h2 className="text-xl font-semibold mb-4">Exam Parameters</h2>
           <div>
             <label htmlFor="units" className="block text-sm font-medium mb-2">
@@ -228,7 +228,7 @@ export default function GeneratePage() {
               id="units"
               type="number"
               {...register("units", { valueAsNumber: true })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
             />
             {errors.units && (
               <p className="mt-1 text-sm text-red-600">{errors.units.message as string}</p>
@@ -236,7 +236,7 @@ export default function GeneratePage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
+        <div className="bg-card text-card-foreground border border-border rounded-xl shadow-sm p-6">
           <h2 className="text-xl font-semibold mb-4">Question Distribution</h2>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -248,7 +248,7 @@ export default function GeneratePage() {
                 type="number"
                 {...register("q2m", { valueAsNumber: true })}
                 min="0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
               />
               {errors.q2m && (
                 <p className="mt-1 text-sm text-red-600">{errors.q2m.message as string}</p>
@@ -264,7 +264,7 @@ export default function GeneratePage() {
                 type="number"
                 {...register("q4m", { valueAsNumber: true })}
                 min="0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
               />
               {errors.q4m && (
                 <p className="mt-1 text-sm text-red-600">{errors.q4m.message as string}</p>
@@ -280,7 +280,7 @@ export default function GeneratePage() {
                 type="number"
                 {...register("q8m", { valueAsNumber: true })}
                 min="0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
               />
               {errors.q8m && (
                 <p className="mt-1 text-sm text-red-600">{errors.q8m.message as string}</p>
@@ -296,7 +296,7 @@ export default function GeneratePage() {
                 type="number"
                 {...register("q16m", { valueAsNumber: true })}
                 min="0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
               />
               {errors.q16m && (
                 <p className="mt-1 text-sm text-red-600">{errors.q16m.message as string}</p>
@@ -308,7 +308,7 @@ export default function GeneratePage() {
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+          className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:border-border disabled:opacity-50 disabled:cursor-not-allowed font-medium"
         >
           {isLoading ? (
             <span>
@@ -345,7 +345,7 @@ export default function GeneratePage() {
               title="PDF Preview"
             />
           ) : (
-            <div className="w-full h-[800px] border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center bg-gray-50">
+            <div className="w-full h-[800px] border-2 border-dashed border-border rounded-xl flex items-center justify-center bg-muted/50">
               <p className="text-gray-500 text-center px-4">
                 Upload a PDF file to preview it here
               </p>

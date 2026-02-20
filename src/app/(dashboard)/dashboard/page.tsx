@@ -6,7 +6,7 @@ import { Sparkles, Mic, ArrowRight, History } from "lucide-react";
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-950 dark:from-gray-900 dark:to-gray-950 p-8">
+    <div className="min-h-screen bg-background text-foreground p-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12 text-center">
           <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
@@ -23,13 +23,11 @@ export default function DashboardPage() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <Link href="/generate">
-              <div className="group relative h-full backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
+              <div className="group relative h-full bg-card border border-border rounded-xl p-8 shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="p-4 rounded-xl bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-200/50 dark:border-orange-900/50">
-                      <Sparkles className="w-8 h-8 text-orange-600 dark:text-orange-500" />
+                    <div className="bg-primary/5 text-primary rounded-lg p-3">
+                      <Sparkles className="w-8 h-8 text-primary" />
                     </div>
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                       Generate with AI
@@ -56,7 +54,7 @@ export default function DashboardPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-orange-600 dark:text-orange-500 font-medium group-hover:gap-4 transition-all">
+                  <div className="flex items-center gap-2 text-primary font-medium group-hover:gap-3 transition-all">
                     <span>Get started</span>
                     <ArrowRight className="w-5 h-5" />
                   </div>
@@ -70,13 +68,11 @@ export default function DashboardPage() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <Link href="/manual">
-              <div className="group relative h-full backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
+              <div className="group relative h-full bg-card border border-border rounded-xl p-8 shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="p-4 rounded-xl bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-200/50 dark:border-orange-900/50">
-                      <Mic className="w-8 h-8 text-orange-600 dark:text-orange-500" />
+                    <div className="bg-primary/5 text-primary rounded-lg p-3">
+                      <Mic className="w-8 h-8 text-primary" />
                     </div>
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                       Manually Create
@@ -103,7 +99,7 @@ export default function DashboardPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 text-orange-600 dark:text-orange-500 font-medium group-hover:gap-4 transition-all">
+                  <div className="flex items-center gap-2 text-primary font-medium group-hover:gap-3 transition-all">
                     <span>Get started</span>
                     <ArrowRight className="w-5 h-5" />
                   </div>
@@ -117,13 +113,11 @@ export default function DashboardPage() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <Link href="/history">
-              <div className="group relative h-full backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 border border-gray-200/50 dark:border-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
+              <div className="group relative h-full bg-card border border-border rounded-xl p-8 shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="relative z-10">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="p-4 rounded-xl bg-gradient-to-br from-orange-500/10 to-orange-600/5 border border-orange-200/50 dark:border-orange-900/50">
-                      <History className="w-8 h-8 text-orange-600 dark:text-orange-500" />
+                    <div className="bg-primary/5 text-primary rounded-lg p-3">
+                      <History className="w-8 h-8 text-primary" />
                     </div>
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                       History & Exports
@@ -134,7 +128,7 @@ export default function DashboardPage() {
                     View, manage, and download your previously generated AI and manual exam papers in PDF and DOCX formats.
                   </p>
 
-                  <div className="flex items-center gap-2 text-orange-600 dark:text-orange-500 font-medium group-hover:gap-4 transition-all">
+                  <div className="flex items-center gap-2 text-primary font-medium group-hover:gap-3 transition-all">
                     <span>View history</span>
                     <ArrowRight className="w-5 h-5" />
                   </div>

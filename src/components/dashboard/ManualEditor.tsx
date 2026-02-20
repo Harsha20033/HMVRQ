@@ -38,8 +38,8 @@ export function ManualEditor({ onChange }: ManualEditorProps) {
           onClick={toggleVoice}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
             isListening
-              ? "bg-red-500 text-white animate-pulse"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              ? "bg-primary text-primary-foreground animate-pulse shadow-md"
+              : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
           }`}
         >
           <Mic className="w-4 h-4" />
