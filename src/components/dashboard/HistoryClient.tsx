@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useReactToPrint } from "react-to-print";
-import { Trash2, Eye, FileText, Download } from "lucide-react";
+import { Trash2, Eye, FileText, Download, Plus } from "lucide-react";
 import { deleteUserPaper } from "@/actions/deletePaper";
 import { exportToWord } from "@/lib/exportUtils";
 
@@ -109,46 +109,82 @@ export function HistoryClient({ initialPapers }: HistoryClientProps) {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {papers.map((paper) => (
           <div
             key={paper.id}
-            className="bg-card text-card-foreground rounded-xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col"
+            className="group relative flex flex-col bg-card border border-border transition-all duration-300 hover:-translate-y-1.5 hover:-translate-x-1.5 hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,0.1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,0.05)]"
           >
-            <h2 className="text-xl font-semibold mb-3">{paper.title}</h2>
-            <p className="text-muted-foreground mb-2">
-              Total Marks: {paper.total_marks}
-            </p>
-            <p className="text-sm text-muted-foreground mb-4">
-              Created: {formatDate(paper.created_at)}
-            </p>
-            <div className="flex gap-2 flex-wrap mt-auto pt-6">
+            <Plus className="absolute size-5 text-muted-foreground/50 bg-card stroke-[1.5] -top-2.5 -left-2.5" />
+            <Plus className="absolute size-5 text-muted-foreground/50 bg-card stroke-[1.5] -top-2.5 -right-2.5" />
+            <Plus className="absolute size-5 text-muted-foreground/50 bg-card stroke-[1.5] -bottom-2.5 -left-2.5" />
+            <Plus className="absolute size-5 text-muted-foreground/50 bg-card stroke-[1.5] -bottom-2.5 -right-2.5" />
+
+            <div className="h-40 w-full border-b border-border bg-secondary/30 overflow-hidden relative flex items-start justify-center pt-4">
+              <div className="w-[85%] h-[200px] bg-white border border-border/50 shadow-sm rounded-t-sm overflow-hidden p-2 relative pointer-events-none">
+                {paper.content_html ? (
+                  <div className="origin-top-left scale-[0.25] w-[400%] h-[400%] text-black font-playfair" dangerouslySetInnerHTML={{ __html: paper.content_html }} />
+                ) : (
+                  <div className="origin-top-left scale-[0.3] w-[333%] h-[333%] text-black font-playfair flex flex-col gap-3">
+                    <div className="h-8 w-full bg-neutral-200" />
+                    {paper.questions.slice(0, 5).map((q, i) => (
+                      <div key={i} className="flex gap-2">
+                        <div className="h-4 w-6 bg-neutral-300" />
+                        <div className="h-4 flex-1 bg-neutral-100" />
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white" />
+              </div>
+            </div>
+
+            <div className="p-6 md:p-8 flex-1 flex flex-col">
+              <div className="mb-4 inline-flex w-fit px-2 py-1 bg-secondary text-secondary-foreground border border-border font-mono text-[10px] uppercase tracking-widest">
+                {paper.content_html ? "Manual Generation" : "AI Orchestrated"}
+              </div>
+
+              <h2 className="text-2xl font-bold tracking-tight mb-6 line-clamp-2">{paper.title}</h2>
+
+              <div className="mt-auto space-y-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+                <div className="flex justify-between border-b border-border/50 pb-2">
+                  <span>Total Marks</span>
+                  <span className="text-foreground font-medium">{paper.total_marks}</span>
+                </div>
+                <div className="flex justify-between pb-2">
+                  <span>Timestamp</span>
+                  <span className="text-foreground font-medium">{formatDate(paper.created_at)}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 mt-auto border-t border-border bg-secondary/20">
               <button
                 onClick={() => handleView(paper)}
-                className="flex items-center gap-2 px-3 py-2 bg-secondary text-secondary-foreground border border-border rounded-md hover:bg-secondary/80 transition-colors text-sm"
+                className="flex items-center justify-center gap-2 py-4 border-r border-b border-border text-xs font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:bg-foreground hover:text-background"
               >
-                <Eye size={16} />
+                <Eye size={14} />
                 View
               </button>
               <button
                 onClick={() => handleDownloadPDF(paper)}
-                className="flex items-center gap-2 px-3 py-2 bg-secondary text-secondary-foreground border border-border rounded-md hover:bg-secondary/80 transition-colors text-sm"
+                className="flex items-center justify-center gap-2 py-4 border-b border-border text-xs font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:bg-foreground hover:text-background"
               >
-                <FileText size={16} />
-                Download PDF
+                <FileText size={14} />
+                PDF
               </button>
               <button
                 onClick={() => handleDownloadDOCX(paper)}
-                className="flex items-center gap-2 px-3 py-2 bg-secondary text-secondary-foreground border border-border rounded-md hover:bg-secondary/80 transition-colors text-sm"
+                className="flex items-center justify-center gap-2 py-4 border-r border-border text-xs font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:bg-foreground hover:text-background"
               >
-                <Download size={16} />
-                Download DOCX
+                <Download size={14} />
+                DOCX
               </button>
               <button
                 onClick={() => handleDelete(paper.id)}
-                className="flex items-center gap-2 px-3 py-2 bg-destructive text-destructive-foreground rounded-md hover:bg-destructive/90 transition-colors text-sm"
+                className="flex items-center justify-center gap-2 py-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground transition-colors hover:bg-destructive hover:text-destructive-foreground"
               >
-                <Trash2 size={16} />
+                <Trash2 size={14} />
                 Delete
               </button>
             </div>
@@ -172,58 +208,58 @@ export function HistoryClient({ initialPapers }: HistoryClientProps) {
               </button>
             </div>
             <div className="font-playfair">
-              {selectedPaper.content_html ? (
-                <div
-                  className="prose max-w-none"
-                  dangerouslySetInnerHTML={{ __html: selectedPaper.content_html }}
-                />
-              ) : (
-                <div className="space-y-6">
+            {selectedPaper.content_html ? (
+              <div
+                className="prose max-w-none"
+                dangerouslySetInnerHTML={{ __html: selectedPaper.content_html }}
+              />
+            ) : (
+              <div className="space-y-6">
                   <div className="border-b border-border pb-4 mb-4">
-                    <h1 className="text-3xl font-bold mb-2 text-center">
-                      {selectedPaper.title}
-                    </h1>
-                    {selectedPaper.subtitle && (
+                  <h1 className="text-3xl font-bold mb-2 text-center">
+                    {selectedPaper.title}
+                  </h1>
+                  {selectedPaper.subtitle && (
                       <p className="text-lg text-center text-muted-foreground mb-1">
-                        {selectedPaper.subtitle}
-                      </p>
-                    )}
-                    <p className="text-center text-muted-foreground">
-                      Total Marks: {selectedPaper.total_marks}
+                      {selectedPaper.subtitle}
                     </p>
-                  </div>
-                  {(() => {
-                    const groupedByMarks: Record<number, Question[]> = {};
-                    selectedPaper.questions.forEach((question) => {
-                      const key = question.marks;
-                      if (!groupedByMarks[key]) {
-                        groupedByMarks[key] = [];
-                      }
-                      groupedByMarks[key].push(question);
-                    });
-                    const marksGroups = Object.keys(groupedByMarks)
-                      .map((key) => Number(key))
-                      .sort((a, b) => a - b);
-                    return marksGroups.map((marks) => (
-                      <div key={marks} className="space-y-3">
-                        <h2 className="text-2xl font-semibold">
-                          Section ({marks} Marks)
-                        </h2>
-                        <ul className="list-decimal list-inside space-y-2">
-                          {groupedByMarks[marks].map((question) => (
+                  )}
+                    <p className="text-center text-muted-foreground">
+                    Total Marks: {selectedPaper.total_marks}
+                  </p>
+                </div>
+                {(() => {
+                  const groupedByMarks: Record<number, Question[]> = {};
+                  selectedPaper.questions.forEach((question) => {
+                    const key = question.marks;
+                    if (!groupedByMarks[key]) {
+                      groupedByMarks[key] = [];
+                    }
+                    groupedByMarks[key].push(question);
+                  });
+                  const marksGroups = Object.keys(groupedByMarks)
+                    .map((key) => Number(key))
+                    .sort((a, b) => a - b);
+                  return marksGroups.map((marks) => (
+                    <div key={marks} className="space-y-3">
+                      <h2 className="text-2xl font-semibold">
+                        Section ({marks} Marks)
+                      </h2>
+                      <ul className="list-decimal list-inside space-y-2">
+                        {groupedByMarks[marks].map((question) => (
                             <li
                               key={question.id}
                               className="text-foreground leading-relaxed"
                             >
-                              {question.question_text}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ));
-                  })()}
-                </div>
-              )}
+                            {question.question_text}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ));
+                })()}
+              </div>
+            )}
             </div>
           </div>
         </div>

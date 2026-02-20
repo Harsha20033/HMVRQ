@@ -3,5 +3,5 @@ export default function MarketingLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div>layout.tsx{children}</div>;
+  return <div>{children}</div>;
 }

@@ -7,6 +7,7 @@ import { z } from "zod";
 import { generatePaper } from "@/actions/generatePaper";
 import { ExamPaperView } from "@/components/dashboard/ExamPaperView";
 import { GoogleGenAI } from "@google/genai";
+import { Plus, UploadCloud } from "lucide-react";
 
 const formSchema = z.object({
   file: z.any().refine((file) => file instanceof File, {
@@ -139,218 +140,229 @@ export default function GeneratePage() {
 
 
   return (
-    <div className="container mx-auto p-6 max-w-7xl min-h-screen bg-background text-foreground">
-      <h1 className="text-3xl font-bold mb-8">Generate Exam Paper with AI</h1>
+    <div className="min-h-screen text-foreground p-6 md:p-12">
+      <div className="max-w-7xl mx-auto space-y-8">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight underline decoration-wavy decoration-neutral-600 mb-8"><span className="font-playfair">Generate</span> AI Paper</h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        <div>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <div className="bg-card text-card-foreground border border-border rounded-xl shadow-sm p-6">
-          <h2 className="text-xl font-semibold mb-4">Document Details</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="md:col-span-2">
-              <label htmlFor="file" className="block text-sm font-medium mb-2">
-                PDF File
-              </label>
-              <input
-                id="file"
-                type="file"
-                accept=".pdf"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    setValue("file", file, { shouldValidate: true });
-                  }
-                }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_600px] gap-8">
+          <div className="relative border border-border bg-card p-8 md:p-12">
+            <Plus className="absolute size-6 text-muted-foreground bg-card stroke-[1.5] -top-3 -left-3" />
+            <Plus className="absolute size-6 text-muted-foreground bg-card stroke-[1.5] -top-3 -right-3" />
+            <Plus className="absolute size-6 text-muted-foreground bg-card stroke-[1.5] -bottom-3 -left-3" />
+            <Plus className="absolute size-6 text-muted-foreground bg-card stroke-[1.5] -bottom-3 -right-3" />
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-12">
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground border-b border-border pb-2 mb-6">Document Metadata</h3>
+                <div className="space-y-8">
+                  <div>
+                    <label htmlFor="file" className="block text-sm font-medium mb-3">
+                      PDF File *
+                    </label>
+                    <label className="group relative flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border hover:border-primary/50 bg-secondary/20 hover:bg-secondary/40 transition-all cursor-pointer">
+                      <UploadCloud className="size-8 text-muted-foreground group-hover:text-primary transition-colors mb-2" />
+                      <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground">Click to browse or drag PDF here</span>
+                      <input
+                        id="file"
+                        type="file"
+                        accept=".pdf"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            setValue("file", file, { shouldValidate: true });
+                          }
+                        }}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      />
+                    </label>
+                    {errors.file && (
+                      <p className="mt-2 text-sm text-destructive">{errors.file.message as string}</p>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                      <label htmlFor="title" className="block text-sm font-medium mb-2">
+                        Title *
+                      </label>
+                      <input
+                        id="title"
+                        type="text"
+                        {...register("title")}
+                        className="w-full bg-transparent border-0 border-b border-border py-2 px-0 text-foreground focus:ring-0 focus:border-primary transition-colors placeholder:text-muted-foreground"
+                      />
+                      {errors.title && (
+                        <p className="mt-2 text-sm text-destructive">{errors.title.message as string}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label htmlFor="subtitle" className="block text-sm font-medium mb-2">
+                        Subtitle
+                      </label>
+                      <input
+                        id="subtitle"
+                        type="text"
+                        {...register("subtitle")}
+                        className="w-full bg-transparent border-0 border-b border-border py-2 px-0 text-foreground focus:ring-0 focus:border-primary transition-colors placeholder:text-muted-foreground"
+                      />
+                      {errors.subtitle && (
+                        <p className="mt-2 text-sm text-destructive">{errors.subtitle.message as string}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label htmlFor="date" className="block text-sm font-medium mb-2">
+                        Date *
+                      </label>
+                      <input
+                        id="date"
+                        type="date"
+                        {...register("date")}
+                        className="w-full bg-transparent border-0 border-b border-border py-2 px-0 text-foreground focus:ring-0 focus:border-primary transition-colors placeholder:text-muted-foreground"
+                      />
+                      {errors.date && (
+                        <p className="mt-2 text-sm text-destructive">{errors.date.message as string}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground border-b border-border pb-2 mb-6">Exam Parameters</h3>
+                <div>
+                  <label htmlFor="units" className="block text-sm font-medium mb-2">
+                    Total Units *
+                  </label>
+                  <input
+                    id="units"
+                    type="number"
+                    {...register("units", { valueAsNumber: true })}
+                    className="w-full bg-transparent border-0 border-b border-border py-2 px-0 text-foreground focus:ring-0 focus:border-primary transition-colors placeholder:text-muted-foreground"
+                  />
+                  {errors.units && (
+                    <p className="mt-2 text-sm text-destructive">{errors.units.message as string}</p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-widest text-muted-foreground border-b border-border pb-2 mb-6">Question Distribution</h3>
+                <div className="grid grid-cols-2 gap-8">
+                  <div>
+                    <label htmlFor="q2m" className="block text-sm font-medium mb-2">
+                      2 Mark Questions
+                    </label>
+                    <input
+                      id="q2m"
+                      type="number"
+                      {...register("q2m", { valueAsNumber: true })}
+                      min="0"
+                      className="w-full bg-transparent border-0 border-b border-border py-2 px-0 text-foreground focus:ring-0 focus:border-primary transition-colors placeholder:text-muted-foreground"
+                    />
+                    {errors.q2m && (
+                      <p className="mt-2 text-sm text-destructive">{errors.q2m.message as string}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="q4m" className="block text-sm font-medium mb-2">
+                      4 Mark Questions
+                    </label>
+                    <input
+                      id="q4m"
+                      type="number"
+                      {...register("q4m", { valueAsNumber: true })}
+                      min="0"
+                      className="w-full bg-transparent border-0 border-b border-border py-2 px-0 text-foreground focus:ring-0 focus:border-primary transition-colors placeholder:text-muted-foreground"
+                    />
+                    {errors.q4m && (
+                      <p className="mt-2 text-sm text-destructive">{errors.q4m.message as string}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="q8m" className="block text-sm font-medium mb-2">
+                      8 Mark Questions
+                    </label>
+                    <input
+                      id="q8m"
+                      type="number"
+                      {...register("q8m", { valueAsNumber: true })}
+                      min="0"
+                      className="w-full bg-transparent border-0 border-b border-border py-2 px-0 text-foreground focus:ring-0 focus:border-primary transition-colors placeholder:text-muted-foreground"
+                    />
+                    {errors.q8m && (
+                      <p className="mt-2 text-sm text-destructive">{errors.q8m.message as string}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="q16m" className="block text-sm font-medium mb-2">
+                      16 Mark Questions
+                    </label>
+                    <input
+                      id="q16m"
+                      type="number"
+                      {...register("q16m", { valueAsNumber: true })}
+                      min="0"
+                      className="w-full bg-transparent border-0 border-b border-border py-2 px-0 text-foreground focus:ring-0 focus:border-primary transition-colors placeholder:text-muted-foreground"
+                    />
+                    {errors.q16m && (
+                      <p className="mt-2 text-sm text-destructive">{errors.q16m.message as string}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full mt-12 px-8 py-4 bg-foreground text-background text-lg font-medium transition-all hover:scale-[1.01] hover:bg-foreground/90 disabled:opacity-50"
+              >
+                {isLoading ? (
+                  <span>
+                    Processing {watchedUnits ? `${watchedUnits}-Unit ` : ""}Syllabus...
+                  </span>
+                ) : (
+                  "Generate Paper"
+                )}
+              </button>
+            </form>
+
+            {error && (
+              <div className="mt-6 p-4 bg-destructive/10 text-destructive border border-destructive/20">
+                <p>{error}</p>
+              </div>
+            )}
+
+            {result && formTitle && totalMarks > 0 && (
+              <ExamPaperView
+                jsonData={result}
+                title={formTitle}
+                subtitle={formSubtitle}
+                date={formDate}
+                totalMarks={totalMarks}
               />
-              {errors.file && (
-                <p className="mt-1 text-sm text-red-600">{errors.file.message as string}</p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="title" className="block text-sm font-medium mb-2">
-                Title *
-              </label>
-              <input
-                id="title"
-                type="text"
-                {...register("title")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
-              />
-              {errors.title && (
-                <p className="mt-1 text-sm text-red-600">{errors.title.message as string}</p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="subtitle" className="block text-sm font-medium mb-2">
-                Subtitle (Optional)
-              </label>
-              <input
-                id="subtitle"
-                type="text"
-                {...register("subtitle")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
-              />
-              {errors.subtitle && (
-                <p className="mt-1 text-sm text-red-600">{errors.subtitle.message as string}</p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="date" className="block text-sm font-medium mb-2">
-                Date *
-              </label>
-              <input
-                id="date"
-                type="date"
-                {...register("date")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
-              />
-              {errors.date && (
-                <p className="mt-1 text-sm text-red-600">{errors.date.message as string}</p>
-              )}
-            </div>
-          </div>
-        </div>
-
-       
-
-        <div className="bg-card text-card-foreground border border-border rounded-xl shadow-sm p-6">
-          <h2 className="text-xl font-semibold mb-4">Exam Parameters</h2>
-          <div>
-            <label htmlFor="units" className="block text-sm font-medium mb-2">
-              Total Units *
-            </label>
-            <input
-              id="units"
-              type="number"
-              {...register("units", { valueAsNumber: true })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
-            />
-            {errors.units && (
-              <p className="mt-1 text-sm text-red-600">{errors.units.message as string}</p>
             )}
           </div>
-        </div>
 
-        <div className="bg-card text-card-foreground border border-border rounded-xl shadow-sm p-6">
-          <h2 className="text-xl font-semibold mb-4">Question Distribution</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="q2m" className="block text-sm font-medium mb-2">
-                2 Mark Questions
-              </label>
-              <input
-                id="q2m"
-                type="number"
-                {...register("q2m", { valueAsNumber: true })}
-                min="0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
+          <div className="sticky top-12 h-[calc(100vh-6rem)]">
+            {pdfUrl ? (
+              <iframe
+                src={pdfUrl}
+                className="w-full h-full border border-border"
+                title="PDF Preview"
               />
-              {errors.q2m && (
-                <p className="mt-1 text-sm text-red-600">{errors.q2m.message as string}</p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="q4m" className="block text-sm font-medium mb-2">
-                4 Mark Questions
-              </label>
-              <input
-                id="q4m"
-                type="number"
-                {...register("q4m", { valueAsNumber: true })}
-                min="0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
-              />
-              {errors.q4m && (
-                <p className="mt-1 text-sm text-red-600">{errors.q4m.message as string}</p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="q8m" className="block text-sm font-medium mb-2">
-                8 Mark Questions
-              </label>
-              <input
-                id="q8m"
-                type="number"
-                {...register("q8m", { valueAsNumber: true })}
-                min="0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
-              />
-              {errors.q8m && (
-                <p className="mt-1 text-sm text-red-600">{errors.q8m.message as string}</p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="q16m" className="block text-sm font-medium mb-2">
-                16 Mark Questions
-              </label>
-              <input
-                id="q16m"
-                type="number"
-                {...register("q16m", { valueAsNumber: true })}
-                min="0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:border-border"
-              />
-              {errors.q16m && (
-                <p className="mt-1 text-sm text-red-600">{errors.q16m.message as string}</p>
-              )}
-            </div>
+            ) : (
+              <div className="w-full h-full border border-border bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] flex items-center justify-center">
+                <p className="text-muted-foreground text-center px-4">
+                  Upload a PDF file to preview it here
+                </p>
+              </div>
+            )}
           </div>
-        </div>
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:border-border disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-        >
-          {isLoading ? (
-            <span>
-              Processing {watchedUnits ? `${watchedUnits}-Unit ` : ""}Syllabus...
-            </span>
-          ) : (
-            "Generate Paper"
-          )}
-        </button>
-      </form>
-
-      {error && (
-        <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-md">
-          <p className="text-red-800">{error}</p>
-        </div>
-      )}
-
-          {result && formTitle && totalMarks > 0 && (
-            <ExamPaperView
-              jsonData={result}
-              title={formTitle}
-              subtitle={formSubtitle}
-              date={formDate}
-              totalMarks={totalMarks}
-            />
-          )} 
-        </div>
-
-        <div className="sticky top-8">
-          {pdfUrl ? (
-            <iframe
-              src={pdfUrl}
-              className="w-full h-[800px] border border-gray-300 rounded-xl shadow-sm"
-              title="PDF Preview"
-            />
-          ) : (
-            <div className="w-full h-[800px] border-2 border-dashed border-border rounded-xl flex items-center justify-center bg-muted/50">
-              <p className="text-gray-500 text-center px-4">
-                Upload a PDF file to preview it here
-              </p>
-            </div>
-          )}
         </div>
       </div>
     </div>
