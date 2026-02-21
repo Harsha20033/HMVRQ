@@ -105,10 +105,8 @@ GenQ enforces a strict Brutalist Monochrome aesthetic. If you are contributing, 
 
 ## 👨‍💻 Developer
 
-**Shaik Raiyan** > Software Engineer
+**JALADHANKI HARSHAVARDHAN** > Software Engineer
 
-🌐 **Portfolio:** [http://shaikraiyan.me/](http://shaikraiyan.me/)
+🔗 **LinkedIn:** [https://www.linkedin.com/in/harsha-vardhan-j-b3a386266/](https://www.linkedin.com/in/harsha-vardhan-j-b3a386266/)
 
-🔗 **LinkedIn:** [https://www.linkedin.com/in/shaik-raiyan](https://www.linkedin.com/in/shaik-raiyan)
-
-🐙 **GitHub:** [https://github.com/SHAIK-RAIYAN](https://github.com/SHAIK-RAIYAN)
+🐙 **GitHub:** [https://github.com/Harsha20033](https://github.com/Harsha20033)
