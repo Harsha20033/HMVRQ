@@ -142,7 +142,7 @@ export default function GeneratePage() {
   return (
     <div className="min-h-screen text-foreground p-6 md:p-12">
       <div className="max-w-7xl mx-auto space-y-8">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight underline decoration-wavy decoration-neutral-600 mb-8"><span className="font-playfair">Generate</span> AI Paper</h1>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight underline decoration-wavy decoration-neutral-600 mb-8"><span className="font-playfair">Generate</span> QPaper</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_600px] gap-8">
           <div className="relative border border-border bg-card p-8 md:p-12">

@@ -90,7 +90,7 @@ export default function MarketingPage() {
         <nav className="fixed top-6 inset-x-0 mx-auto max-w-5xl z-50 rounded-full border border-border/80 bg-background/40 backdrop-blur-md px-6 py-3 flex items-center justify-between shadow-sm">
           <div className="flex items-center gap-3">
             <Image src={logoIcon} alt="GenQ Logo" width={28} height={28} className="w-7 h-7" />
-            <div className="text-2xl font-bold">GenQ</div>
+            <div className="text-2xl font-bold">HMVRQ</div>
           </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
@@ -133,7 +133,7 @@ export default function MarketingPage() {
             >
               <span className="absolute size-2 rounded-full bg-primary" />
               <span className="size-2 animate-ping rounded-full bg-primary" />
-              <span>The Next Generation of Exam Generation</span>
+              <span>HMVRQ Exam Creation Platform.</span>
             </motion.div>
 
             <motion.h1
@@ -141,7 +141,7 @@ export default function MarketingPage() {
               transition={fadeUpTransition}
               className="text-6xl md:text-8xl font-bold tracking-tight mb-8 text-balance"
             >
-              Generate Papers in Seconds, Not Hours.
+              Your content. Our intelligence. Perfect questions.
             </motion.h1>
 
             <motion.p
@@ -149,7 +149,7 @@ export default function MarketingPage() {
               transition={fadeUpTransition}
               className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-balance"
             >
-              Upload your syllabus once and let GenQ do the heavy lifting.
+              Upload your syllabus once and let HMVRQ do the heavy lifting.
               Generate, refine, and export complete exam papers without leaving
               your browser.
             </motion.p>
@@ -265,7 +265,7 @@ export default function MarketingPage() {
                 Cognitive AI Syllabus Parsing
               </h2>
               <p className="text-muted-foreground text-base md:text-lg">
-                GenQ uses a 1-million token context window to ingest entire
+                HMVRQ uses a 1-million token context window to ingest entire
                 syllabus PDFs in one pass, preserving structure, hierarchy, and
                 nuance. No manual splitting, no truncation, and no context loss.
               </p>
@@ -354,9 +354,9 @@ export default function MarketingPage() {
       <footer className="border-t border-border/40 bg-background pt-16 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center justify-center text-center">
           <div className="space-y-3">
-            <div className="text-lg font-semibold">GenQ</div>
+            <div className="text-lg font-semibold">Project Guide: Mrs. R . Syed Ali Fathima</div>
             <p className="text-sm text-muted-foreground max-w-md">
-              Enterprise-grade exam generation for modern educators.
+              {/* Enterprise-grade exam generation for modern educators. */}
             </p>
             <a
               href={process.env.NEXT_PUBLIC_CONTACT_ME_URL || "#"}
@@ -364,7 +364,7 @@ export default function MarketingPage() {
               rel="noopener noreferrer"
               className="mt-6 px-6 py-2 bg-secondary text-secondary-foreground rounded-full text-sm font-medium hover:bg-secondary/80 transition-colors"
             >
-              Contact Developer
+              {/* Contact Developer */}
             </a>
           </div>
 
@@ -374,7 +374,7 @@ export default function MarketingPage() {
 
           <div className=" max-w-7xl flex flex-col md:flex-row items-center justify-between text-sm text-muted-foreground  pt-8 pb-8 gap-4">
             <span>
-              © {new Date().getFullYear()} GenQ. All rights reserved.
+              © {new Date().getFullYear()} HMVRQ. All rights reserved.
             </span>
             <span>Built for instructors, departments, and entire institutions.</span>
           </div>
@@ -382,7 +382,7 @@ export default function MarketingPage() {
 
           <div className="relative w-full  flex justify-center -mb-10 pointer-events-none select-none">
             <h1 className="text-[20vw] font-bold tracking-tighter leading-none text-transparent bg-clip-text bg-linear-to-b from-muted-foreground/20 to-background ">
-              GEN<span className="bg-clip-text bg-linear-to-t from-muted-foreground to-background font-sans">Q</span>
+              HMVR<span className="bg-clip-text bg-linear-to-t from-muted-foreground to-background font-sans">Q</span>
               
             </h1>
           </div>

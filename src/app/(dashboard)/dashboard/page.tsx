@@ -49,10 +49,10 @@ export default function DashboardPage() {
                     <div className="bg-primary/5 text-primary rounded-lg p-3">
                       <Sparkles className="w-8 h-8 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-bold">Generate with AI</h2>
+                    <h2 className="text-2xl font-bold">Generate with PDF's</h2>
                   </div>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    Upload your syllabus PDF and let AI generate comprehensive exam questions
+                    Upload your syllabus PDF and let HMVRQ generate comprehensive exam questions
                     based on your specifications. Perfect for quick, structured paper creation.
                   </p>
                   <div className="space-y-3 mb-6">
@@ -143,7 +143,7 @@ export default function DashboardPage() {
                     <h2 className="text-2xl font-bold">History &amp; Exports</h2>
                   </div>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    View, manage, and download your previously generated AI and manual exam papers in PDF and DOCX formats.
+                    View, manage, and download your previously generated and manual exam papers in PDF and DOCX formats.
                   </p>
                   <div className="mt-auto flex items-center gap-2 text-foreground font-medium">
                     <span>View history</span>
