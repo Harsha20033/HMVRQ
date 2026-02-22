@@ -1,6 +1,6 @@
-# GenQ
+# HMVRQ
 
-GenQ is an enterprise-grade platform designed to revolutionize academic assessment creation. By leveraging high-context LLMs and native browser APIs, GenQ transforms massive, multi-unit syllabus PDFs into structured, Bloom's Taxonomy-aligned examination papers in seconds.
+HMVRQ is an enterprise-grade platform designed to revolutionize academic assessment creation. By leveraging high-context LLMs and native browser APIs, HMVRQ transforms massive, multi-unit syllabus PDFs into structured, Bloom's Taxonomy-aligned examination papers in seconds.
 
 Designed with a strict, high-performance brutalist monochrome aesthetic, the platform offers both autonomous AI generation and a hands-free voice-dictation manual editor.
 
@@ -20,9 +20,7 @@ Designed with a strict, high-performance brutalist monochrome aesthetic, the pla
 
 **Rich Text Editing:** A deeply integrated TinyMCE editor allows for granular formatting, list structuring, and emphasis control.
 
-### 3. Universal Export & Cloud Persistence
-
-**Print-Ready PDFs:** Generate pixel-perfect, academically formatted PDFs directly from the browser using react-to-print.
+### 3. Universal Export & Cloud P**Print-Ready PDFs:** Generate pixel-perfect, academically formatted PDFs directly from the browser using react-to-print.
 
 **Highly Compatible DOCX:** Export complex HTML layouts into standard Word documents for final institutional tweaking.
 
@@ -30,7 +28,7 @@ Designed with a strict, high-performance brutalist monochrome aesthetic, the pla
 
 ## 🏗️ Technical Architecture
 
-GenQ is built on a modern, highly scalable edge architecture:
+HMVRQ is built on a modern, highly scalable edge architecture:
 
 - **Framework:** Next.js 15 (App Router) for server-side rendering, optimized client components, and API route handling.
 - **Language:** Strict TypeScript for end-to-end type safety and rapid refactoring.
@@ -42,7 +40,7 @@ GenQ is built on a modern, highly scalable edge architecture:
 
 ## 💻 Local Development Setup
 
-Follow these instructions to run the GenQ orchestrator locally.
+Follow these instructions to run the HMVRQ orchestrator locally.
 
 ### Prerequisites
 
@@ -55,7 +53,7 @@ Follow these instructions to run the GenQ orchestrator locally.
 
 ```bash
 git clone [repository-url]
-cd GenQ
+cd HMVRQ
 ```
 
 ### 2. Install Dependencies
@@ -91,7 +89,7 @@ Open `http://localhost:3000` in your browser. The application will immediately e
 
 ## 🎨 Design System Constraints
 
-GenQ enforces a strict Brutalist Monochrome aesthetic. If you are contributing, adhere to the following UI rules:
+HMVRQ enforces a strict Brutalist Monochrome aesthetic. If you are contributing, adhere to the following UI rules:
 
 - **No Rogue Colors:** The UI relies entirely on standard variables (`bg-background`, `text-foreground`, `bg-card`, `border-border`). Do not introduce arbitrary HEX or RGB values into the components.
 

@@ -20,6 +20,7 @@ import generateDark from "@/images/dark-generate.png";
 import manualDark from "@/images/dark-manual.png";
 import manualLight from "@/images/light-manual.png";
 import logoIcon from "@/app/icon.svg";
+import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -141,7 +142,7 @@ export default function MarketingPage() {
               transition={fadeUpTransition}
               className="text-6xl md:text-8xl font-bold tracking-tight mb-8 text-balance"
             >
-              Your content. Our intelligence. Perfect questions.
+              Your content. Our <ContainerTextFlip words={["Insight","Analytics","Expertise","Engine"]}/>. Perfect questions.
             </motion.h1>
 
             <motion.p
@@ -354,18 +355,11 @@ export default function MarketingPage() {
       <footer className="border-t border-border/40 bg-background pt-16 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center justify-center text-center">
           <div className="space-y-3">
-            <div className="text-lg font-semibold">Project Guide: Mrs. R . Syed Ali Fathima</div>
+            <div className="text-xl font-semibold"><span className="font-mono underline decoration-wavy">Project Guide</span>: Mrs. R . Syed Ali Fathima</div>
             <p className="text-sm text-muted-foreground max-w-md">
               {/* Enterprise-grade exam generation for modern educators. */}
             </p>
-            <a
-              href={process.env.NEXT_PUBLIC_CONTACT_ME_URL || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 px-6 py-2 bg-secondary text-secondary-foreground rounded-full text-sm font-medium hover:bg-secondary/80 transition-colors"
-            >
-              {/* Contact Developer */}
-            </a>
+           
           </div>
 
 
