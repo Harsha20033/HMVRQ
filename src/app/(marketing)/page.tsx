@@ -21,6 +21,45 @@ import manualDark from "@/images/dark-manual.png";
 import manualLight from "@/images/light-manual.png";
 import logoIcon from "@/app/icon.svg";
 import { ContainerTextFlip } from "@/components/ui/container-text-flip";
+import Fathima from "@/app/Fathima mam.jpeg"
+import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
+
+import veera from "@/app/TeamMembers/Veera.jpeg"
+import rashne from "@/app/TeamMembers/rashne.jpeg"
+import meghana from "@/app/TeamMembers/meghana.jpeg"
+import harsha from "@/app/TeamMembers/harsha.jpeg"
+
+const people = [
+  {
+    id: 1,
+    name: "Harsha Vardhan ",
+    regno: "99220040541",
+    image:harsha,
+  },
+  {
+    id: 2,
+    name: "Veera Reddy",
+    regno: "99220040507",
+    image:
+      veera,
+  },
+  {
+    id: 3,
+    name: "Meghana",
+    regno:"99220040549",
+    image:
+      meghana,
+  },
+  {
+    id: 4,
+    name: "Jeeva Rashne",
+    regno: "99220040550",
+    image:
+      rashne,
+  },
+ 
+];
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -354,17 +393,17 @@ export default function MarketingPage() {
 
       <footer className="border-t border-border/40 bg-background pt-16 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center justify-center text-center">
-          <div className="space-y-3">
-            <div className="text-xl font-semibold"><span className="font-mono underline decoration-wavy">Project Guide</span>: Mrs. R . Syed Ali Fathima</div>
-            <p className="text-sm text-muted-foreground max-w-md">
-              {/* Enterprise-grade exam generation for modern educators. */}
-            </p>
-           
+          <div className="space-y-3 ">
+            <div className="text-2xl font-semibold flex justify-center items-center"><span className="font-mono  dark:text-neutral-200 text-neutral-700">Project Guide</span><Image src={Fathima} alt="Guide" width={60}  className="mx-4 rounded-full ring-2 ring-white hover:scale-110 duration-300 shadow-2xl shadow-white" /> <span className="underline decoration-wavy dark:decoration-neutral-600 decoration-offset-10 decoration-neutral-400">Mrs. R . Syed Ali Fathima</span></div>
+            
+            <div className="flex flex-row items-center justify-center mb-10 w-full">
+            <AnimatedTooltip items={people} />
+            </div>
           </div>
 
 
 
-          <div className="mt-12 w-dvw flex justify-center items-center border-t border-border">
+          <div className="mt-8 w-dvw flex justify-center items-center border-t border-border">
 
           <div className=" max-w-7xl flex flex-col md:flex-row items-center justify-between text-sm text-muted-foreground  pt-8 pb-8 gap-4">
             <span>
